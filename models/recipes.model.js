@@ -1,6 +1,12 @@
 const fs = require('fs/promises');
 
-exports.fetchRecipes = async () => {
+exports.fetchRecipes = async (exclude_ingredients) => {
 	const recipes = await fs.readFile('./data/data.json', 'utf-8');
-	return JSON.parse(recipes);
+	const filteredRecipes = JSON.parse(recipes).filter((recipe) => {
+		return recipe.ingredients.every(
+			(ingredient) => ingredient.name !== exclude_ingredients
+		);
+	});
+
+	return filteredRecipes;
 };

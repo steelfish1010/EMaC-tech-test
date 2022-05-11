@@ -30,4 +30,12 @@ describe('GET/recipes', () => {
 			});
 		});
 	});
+	test('200: query exclude_ingredients returns only recipes that exclude a given ingredient', async () => {
+		const { body } = await request.get('/api/recipes?exclude_ingredients=kale');
+		body.recipes.forEach((recipe) => {
+			recipe.ingredients.forEach((ingredient) => {
+				expect(ingredient.name).not.toEqual('kale');
+			});
+		});
+	});
 });
