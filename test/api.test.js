@@ -38,4 +38,16 @@ describe('GET/recipes', () => {
 			});
 		});
 	});
+	test('200: query exclude_ingredients returns only recipes that exclude multiple given ingredients', async () => {
+		const { body } = await request.get(
+			'/api/recipes?exclude_ingredients=kale,flax,coffee'
+		);
+		body.recipes.forEach((recipe) => {
+			recipe.ingredients.forEach((ingredient) => {
+				expect(ingredient.name).not.toEqual('kale');
+				expect(ingredient.name).not.toEqual('flax');
+				expect(ingredient.name).not.toEqual('coffee');
+			});
+		});
+	});
 });
