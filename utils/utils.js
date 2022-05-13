@@ -11,7 +11,7 @@ const filterArrayMultipleTimes = (arr, exclude_value) => {
 		const filteredArr = arr.filter((obj) => {
 			return obj.name !== exclude_value[0];
 		});
-		const newExcludeArr = exclude_value.splice(1);
+		const newExcludeArr = exclude_value.slice(1);
 		return filterArrayMultipleTimes(filteredArr, newExcludeArr);
 	}
 };
