@@ -17,3 +17,11 @@ exports.fetchRecipes = async (excludes) => {
 		return filteredRecipes;
 	}
 };
+
+exports.fetchRecipeById = async (recipe_id) => {
+	const recipes = await fs.readFile('./data/data.json', 'utf-8');
+	const recipe = JSON.parse(recipes).filter((recipe) => {
+		return recipe.id === `recipe-${recipe_id}`;
+	});
+	return recipe[0];
+};

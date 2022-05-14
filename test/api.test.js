@@ -51,3 +51,26 @@ describe('GET/recipes', () => {
 		});
 	});
 });
+
+describe('GET recipes by id', () => {
+	test('200: returns an object', async () => {
+		const { body } = await request.get('/api/recipes/31');
+		expect(typeof body.recipe).toBe('object');
+	});
+	test('200: returns the requested recipe', async () => {
+		const { body } = await request.get('/api/recipes/31');
+		const expected = {
+			id: 'recipe-31',
+			imageUrl: 'http://www.images.com/21',
+			instructions: 'spin it, twist it, pull it, flick it... bop it!',
+			ingredients: [
+				{ name: 'strawberries', grams: 187 },
+				{ name: 'kale', grams: 41 },
+				{ name: 'apple juice', grams: 64 },
+				{ name: 'coffee', grams: 146 },
+				{ name: 'cocoa nibs', grams: 154 },
+			],
+		};
+		expect(body.recipe).toEqual(expected);
+	});
+});
