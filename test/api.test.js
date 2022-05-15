@@ -86,5 +86,9 @@ describe('GET recipes by id', () => {
 			const { body } = await request.get('/api/recipes/cat').expect(400);
 			expect(body.msg).toBe('Invalid request');
 		});
+		test('404: invalid route', async () => {
+			const { body } = await request.get('/api/recipe/31').expect(404);
+			expect(body.msg).toBe('Route not found');
+		});
 	});
 });
